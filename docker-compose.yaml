@@ -1,13 +1,5 @@
 version: '3'
-
-services:
-
-  web:
-    labels:
-      shipyard.route: '/'
-    build: '.'
-    environment:
-      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+er:obscure-password@postgres/app'
       DEV: ${DEV}
       FLASK_DEBUG: '1'
     volumes:
