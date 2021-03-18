@@ -17,6 +17,66 @@ services:
     ports:
       - '8080:8080'
 
+  web2:
+    labels:
+      shipyard.route: '/'
+    build: '.'
+    environment:
+      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+      DEV: ${DEV}
+      FLASK_DEBUG: '1'
+    volumes:
+      - './filesystem/entrypoints:/entrypoints:ro'
+      - './migrations:/srv/migrations'
+      - './src:/srv/src:ro'
+    ports:
+      - '8080'
+
+  web3:
+    labels:
+      shipyard.route: '/'
+    build: '.'
+    environment:
+      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+      DEV: ${DEV}
+      FLASK_DEBUG: '1'
+    volumes:
+      - './filesystem/entrypoints:/entrypoints:ro'
+      - './migrations:/srv/migrations'
+      - './src:/srv/src:ro'
+    ports:
+      - '8080'
+
+  frontend:
+    labels:
+      shipyard.route: '/'
+    build: '.'
+    environment:
+      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+      DEV: ${DEV}
+      FLASK_DEBUG: '1'
+    volumes:
+      - './filesystem/entrypoints:/entrypoints:ro'
+      - './migrations:/srv/migrations'
+      - './src:/srv/src:ro'
+    ports:
+      - '8080'
+
+  api:
+    labels:
+      shipyard.route: '/'
+    build: '.'
+    environment:
+      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+      DEV: ${DEV}
+      FLASK_DEBUG: '1'
+    volumes:
+      - './filesystem/entrypoints:/entrypoints:ro'
+      - './migrations:/srv/migrations'
+      - './src:/srv/src:ro'
+    ports:
+      - '8080'
+
   worker:
     labels:
       shipyard.before: 'poetry run flask db upgrade'
