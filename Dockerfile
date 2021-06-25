@@ -18,6 +18,8 @@ RUN apk add --update --no-cache \
       build-base \
       postgresql-dev
 
+
+
 # Install watchman
 #ENV WATCHMAN_VERSION v4.9.0
 #RUN cd /tmp && git clone https://github.com/facebook/watchman.git && \
