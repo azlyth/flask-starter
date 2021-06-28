@@ -19,6 +19,19 @@ services:
     ports:
       - '8080:8080'
 
+  test-worker:
+    build: '.'
+    environment:
+      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
+      DEV: ${DEV}
+      FLASK_DEBUG: '1'
+    entrypoint: ['bash', '-c']
+    command: '/entrypoints/worker.sh'
+    volumes:
+      - './filesystem/entrypoints:/entrypoints:ro'
+      - './migrations:/srv/migrations'
+      - './src:/srv/src:ro'
+
   worker:
     labels:
       shipyard.before: 'poetry run flask db upgrade'
