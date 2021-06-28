@@ -27,6 +27,7 @@ services:
       DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
       DEV: ${DEV}
       FLASK_DEBUG: '1'
+    entrypoint: ['sh', '-c']
     command: '/entrypoints/worker.sh'
     volumes:
       - './filesystem/entrypoints:/entrypoints:ro'
