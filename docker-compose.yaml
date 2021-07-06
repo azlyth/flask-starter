@@ -5,7 +5,7 @@ services:
   web:
     labels:
       shipyard.route: '/'
-    build: '.'
+    image: 'gcr.io/shipyard-dev/flask-web:${SHIPYARD_COMMIT}'
     environment:
       DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
       DEV: ${DEV}
@@ -19,22 +19,8 @@ services:
     ports:
       - '8080:8080'
 
-  worker:
-    labels:
-      shipyard.before: 'poetry run flask db upgrade'
-    build: '.'
-    environment:
-      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
-      DEV: ${DEV}
-      FLASK_DEBUG: '1'
-    command: '/entrypoints/worker.sh'
-    volumes:
-      - './filesystem/entrypoints:/entrypoints:ro'
-      - './migrations:/srv/migrations'
-      - './src:/srv/src:ro'
-
   postgres:
-    image: 'postgres:9.6-alpine'
+    image: 'postgres:${POSTGRES_TAG}'
     environment:
       POSTGRES_USER: 'obscure-user'
       POSTGRES_PASSWORD: 'obscure-password'
@@ -46,7 +32,7 @@ services:
       - '5432'
 
   redis:
-    image: 'redis:5.0-alpine'
+    image: 'redis:${REDIS_TAG}'
     ports:
       - '6379'
 
