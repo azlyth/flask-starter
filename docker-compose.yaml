@@ -5,6 +5,7 @@ services:
   web:
     labels:
       shipyard.route: '/'
+      shipyard.before: 'poetry run flask db upgrade'
     image: 'gcr.io/shipyard-dev/flask-web:${SHIPYARD_COMMIT}'
     environment:
       DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
