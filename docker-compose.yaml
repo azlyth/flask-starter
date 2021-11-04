@@ -2,7 +2,7 @@ version: '3'
 
 services:
 
-  web:
+  web_web:
     labels:
       shipyard.route: '/'
     build: '.'
@@ -18,19 +18,6 @@ services:
       - '9000'
     ports:
       - '8080:8080'
-
-  test-worker:
-    build: '.'
-    environment:
-      DATABASE_URL: 'postgres://obscure-user:obscure-password@postgres/app'
-      DEV: ${DEV}
-      FLASK_DEBUG: '1'
-    entrypoint: ['bash', '-c']
-    command: '/entrypoints/worker.sh'
-    volumes:
-      - './filesystem/entrypoints:/entrypoints:ro'
-      - './migrations:/srv/migrations'
-      - './src:/srv/src:ro'
 
   worker:
     labels:
